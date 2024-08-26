@@ -17,7 +17,8 @@ exports.createQuestion = AysncHandler(async (req, res) => {
   // Check if question
   // Check if question
   const questionExists = await Question.findOne({ question });
-  if (!questionExists) {
+
+  if (questionExists) {
     throw new Error("Question Already Exists");
   }
   //create exam

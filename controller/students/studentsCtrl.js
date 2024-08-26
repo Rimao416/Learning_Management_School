@@ -210,7 +210,7 @@ exports.writeExam = AysncHandler(async (req, res) => {
     throw new Error("Student not found");
   }
   // Get Exam
-  const exam = await Exam.findById(req.params.examID).populate("questions");
+  const exam = await Exam.findById(req.params.examID).populate("questions").populate("academicTerm")
   if (!exam) {
     throw new Error("Exam not found");
   }
@@ -218,18 +218,18 @@ exports.writeExam = AysncHandler(async (req, res) => {
   // get Students Answer
   const studentAnswers = req.body.answers;
 
-  // check if student answered all questions
+//   // check if student answered all questions
   if (studentAnswers.length !== questions.length) {
     throw new Error("Student must answered all questions");
   }
 
   //   Check if student has already taken the exams
-  const studentFoundInResults = await ExamResult.findOne({
-    student: student?._id,
-  });
-  if (studentFoundInResults) {
-    throw new Error("Student has already taken the exam");
-  }
+//   const studentFoundInResults = await ExamResult.findOne({
+//     student: student?._id,
+//   });
+//   if (studentFoundInResults) {
+//     throw new Error("Student has already taken the exam");
+//   }
 
   // Build Report Object
   let correctanswers = 0;
@@ -281,22 +281,26 @@ exports.writeExam = AysncHandler(async (req, res) => {
   }
 
   //   Generate Exam Results
-  const examResults = await ExamResult.create({
-    student: student?._id,
-    exam: exam?._id,
-    grade: grade,
-    score: score,
-    remarks: remarks,
-    classLevels: exam?.classLevels,
-    academicTerm: exam?.academicTerm,
-    academicYear: exam?.academicYear,
-  });
+//   const examResults = await ExamResult.create({
+//     student: student?._id,
+//     exam: exam?._id,
+//     grade: grade,
+//     score: score,
+//     remarks: remarks,
+//     classLevels: exam?.classLevels,
+//     academicTerm: exam?.academicTerm,
+//     academicYear: exam?.academicYear,
+//   });
 
-  // Publih the resulsts into
-  student.examResults.push(examResults?._id);
+//   // Publih the resulsts into
+//   student.examResults.push(examResults?._id);
 
-  // sAVE
-  await student.save();
+//   // sAVE
+
+//   await student.save();
+
+// Promoting
+console.log(exam.academicTerm)
 
   res.status(200).json({
     status: "success",

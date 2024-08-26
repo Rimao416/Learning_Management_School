@@ -10,11 +10,7 @@ const { hashPassword, isPassMatched } = require("../../utils/helpers");
 //@acess  Private
 exports.registerAdmCtrl = AysncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-  //Check if email exists
-  const adminFound = await Admin.findOne({ email });
-  if (adminFound) {
-    throw new Error("Admin Exists");
-  }
+
 
   //register
   const user = await Admin.create({

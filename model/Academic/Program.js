@@ -15,7 +15,7 @@ const ProgramSchema = new Schema(
     duration: {
       type: String,
       required: true,
-      default: "4 years",
+      default: "Licence Informatique",
     },
     // created automatically
     //CSFTY
@@ -25,7 +25,7 @@ const ProgramSchema = new Schema(
         return (
           this.name
             .split(" ")
-            .map(name => name[0])
+            .map((name) => name[0])
             .join("")
             .toUpperCase() +
           Math.floor(10 + Math.random() * 90) +
